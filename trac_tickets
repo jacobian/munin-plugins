@@ -8,8 +8,8 @@ class TracTickets(munin.Plugin):
     def _connect(self):
         # Both of the below won't work if PYTHONPATH and TRAC_ENV aren't
         # set in the munin-node plugin conf.
-        from trac.env import Environment
-        return Environment() 
+        import trac.env
+        return trac.env.open_environment()
     
     def fetch(self):
         return [
