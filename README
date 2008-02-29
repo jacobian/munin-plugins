@@ -1,0 +1,6 @@
+This is a little collection of Munin plugins I wrote. I don't imagine any of 
+this will work perfectly for anyone other than me, but it's released under
+the BSD license in case anyone finds it useful.
+
+Actually, munin.py is a pretty cute micro-framework for writing other munin
+plugins. That might be interesting to someone else.
