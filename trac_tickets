@@ -1,0 +1,56 @@
+#!/usr/bin/python
+
+import sys
+import munin
+
+class TracTickets(munin.Plugin):
+
+    def _connect(self):
+        # Both of the below won't work if PYTHONPATH and TRAC_ENV aren't
+        # set in the munin-node plugin conf.
+        from trac.env import Environment
+        return Environment() 
+    
+    def fetch(self):
+        return [
+            ('unreviewed.value', 10),
+            ('accepted.value', 10),
+            ('decision.value', 10),
+            ('someday.value', 10),
+            ('closed.value', 10),
+        ]
+    
+    def config(self):
+        return [
+            ('graph_title', 'Trac tickets'),
+            ('graph_args', '-l 0 --base 1000'),
+            ('graph_vlabel', 'Tickets'),
+            ('graph_scale', 'no'),
+            ('graph_category', 'Trac'),
+            ('graph_info', 'Shows current Trac ticket counts'),
+            ('unreviewed.label', 'unreviewed'),
+            ('unreviewed.info', 'Unreviewed'),
+            ('unreviewed.type', 'GAUGE'),
+            ('accepted.label', 'accepted'),
+            ('accepted.info', 'Accepted'),
+            ('accepted.type', 'GAUGE'),
+            ('decision.label', 'decision'),
+            ('decision.info', 'Design decision needed'),
+            ('decision.type', 'GAUGE'),
+            ('someday.label', 'someday'),
+            ('someday.info', 'Someday/Maybe'),
+            ('someday.type', 'GAUGE'),
+            ('closed.label', 'closed'),
+            ('closed.info', 'Closed'),
+            ('closed.type', 'GAUGE'),
+        ]
+        
+    def autoconf(self):
+        try:
+            self._connect()
+        except:
+            return False
+        return True
+
+if __name__ == '__main__':
+    munin.run(TracTickets)
