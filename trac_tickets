@@ -7,7 +7,11 @@ class TracTickets(munin.Plugin):
     
     # Queries to perform. Syntax is (label, info, query)
     queries = [
-        ('unreviewed', 'Unreviewed', 'status=new|assigned|reopened&stage=Unreviewed')
+        ('unreviewed', 'Unreviewed', 'status=new|assigned|reopened&stage=Unreviewed'),
+        ('design', 'Design decision needed', 'status=new|assigned|reopened&stage=Design+decision+needed'),
+        ('accepted', 'Accepted', 'status=new|assigned|reopened&stage=Accepted'),
+        ('ready', 'Ready for checkin', 'status=new|assigned|reopened&stage=Ready+for+checkin'),
+        ('closed', 'Closed', 'status=closed'),
     ]
     
     def fetch(self):
