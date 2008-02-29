@@ -11,7 +11,6 @@ class TracTickets(munin.Plugin):
         ('design', 'Design decision needed', 'status=new|assigned|reopened&stage=Design decision needed'),
         ('accepted', 'Accepted', 'status=new|assigned|reopened&stage=Accepted'),
         ('ready', 'Ready for checkin', 'status=new|assigned|reopened&stage=Ready for checkin'),
-        ('closed', 'Closed', 'status=closed'),
     ]
     
     def fetch(self):
