@@ -35,4 +35,4 @@ class TracMilestone(TracTickets):
         return Milestone.select(env, False)
 
 if __name__ == '__main__':
-    munin.run(TracTickets)
+    munin.run(TracMilestone)
