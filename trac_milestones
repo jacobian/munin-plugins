@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from trac_tickets import TracTickets
 
 class TracMilestone(TracTickets):
