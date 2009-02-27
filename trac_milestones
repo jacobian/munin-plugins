@@ -14,7 +14,7 @@ class TracMilestone(TracTickets):
         yield ('graph_scale', 'no')
         yield ('graph_category', 'Trac')
         yield ('graph_info', 'Progress towards future Trac milestones')
-        for m in self.get_milestones():
+        for m in self.get_milestones(env):
             label = m.name.replace(' ', '-')
             yield ("%s.label" % label, label)
             yield ("%s.info" % m.name, m.name)
