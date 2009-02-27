@@ -15,7 +15,7 @@ class TracMilestone(TracTickets):
         yield ('graph_category', 'Trac')
         yield ('graph_info', 'Progress towards future Trac milestones')
         for m in self.get_milestones(env):
-            label = m.name.replace(' ', '-')
+            label = m.name.replace(' ', '_').replace('.', '_')
             yield ("%s.label" % label, label)
             yield ("%s.info" % label, m.name)
     
@@ -26,7 +26,7 @@ class TracMilestone(TracTickets):
         cursor = env.get_db_cnx().cursor()
         
         for m in self.get_milestones(env):
-            label = m.name.replace(' ', '-')
+            label = m.name.replace(' ', '_').replace('.', '_')
             q = Query.from_string("status=new|assigned|reopened&milestone=%s" % m.name)
             cursor.execute(*q.get_sql())
             yield ("%s.value" % label, len(list(cursor)))
