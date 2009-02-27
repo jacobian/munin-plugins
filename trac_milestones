@@ -27,7 +27,7 @@ class TracMilestone(TracTickets):
         
         for m in self.get_milestones(env):
             label = m.name.replace(' ', '_').replace('.', '_')
-            q = Query.from_string("status=new|assigned|reopened&milestone=%s" % m.name)
+            q = Query.from_string(env, "status=new|assigned|reopened&milestone=%s" % m.name)
             cursor.execute(*q.get_sql())
             yield ("%s.value" % label, len(list(cursor)))
         
