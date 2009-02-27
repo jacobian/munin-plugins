@@ -17,8 +17,7 @@ class TracMilestone(TracTickets):
         for m in self.get_milestones(env):
             label = m.name.replace(' ', '-')
             yield ("%s.label" % label, label)
-            yield ("%s.info" % m.name, m.name)
-            yield ("%s.type" % type, "GAUGE")
+            yield ("%s.info" % label, m.name)
     
     def fetch(self):
         from trac.ticket.query import Query

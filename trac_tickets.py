@@ -33,8 +33,7 @@ class TracTickets(munin.Plugin):
         yield ('graph_info', 'Shows current Trac ticket counts')
         for label, info, query in self.queries:
             yield ("%s.label" % label, label)
-            yield ("%s.info" % info, info)
-            yield ("%s.type" % type, "GAUGE")
+            yield ("%s.info" % label, info)
 
     def _connect(self):
         # Both of the below won't work if PYTHONPATH and TRAC_ENV aren't
