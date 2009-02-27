@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import munin
 from trac_tickets import TracTickets
 
 class TracMilestone(TracTickets):
@@ -32,3 +33,6 @@ class TracMilestone(TracTickets):
     def get_milestones(self, env):
         from trac.ticket import Milestone
         return Milestone.select(env, False)
+
+if __name__ == '__main__':
+    munin.run(TracTickets)
