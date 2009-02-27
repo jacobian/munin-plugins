@@ -1,0 +1,32 @@
+from trac_tickets import TracTickets
+
+class TracMilestone(TracTickets):
+        
+    def config(self):
+        yield ('graph_title', 'Trac milestones')
+        yield ('graph_args', '-l 0 --base 1000')
+        yield ('graph_vlabel', 'Open tickets')
+        yield ('graph_scale', 'no')
+        yield ('graph_category', 'Trac')
+        yield ('graph_info', 'Progress towards future Trac milestones')
+        for m in self.get_milestones():
+            label = m.name.replace(' ', '-')
+            yield ("%s.label" % label, label)
+            yield ("%s.info" % m.name, m.name)
+            yield ("%s.type" % type, "GAUGE")
+    
+    def fetch(self):
+        from trac.ticket.query import Query
+        
+        env = self._connect()
+        cursor = env.get_db_cnx().cursor()
+        
+        for m in self.get_milestones(env):
+            label = m.name.replace(' ', '-')
+            q = Query.from_string("status=new|assigned|reopened&milestone=%s" % m.name)
+            cursor.execute(*q.get_sql())
+            yield ("%s.value" % label, len(list(cursor)))
+        
+    def get_milestones(self, env):
+        from trac.ticket import Milestone
+        return Milestone.select(env, False)
