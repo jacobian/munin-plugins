@@ -6,6 +6,8 @@ from trac_tickets import TracTickets
 class TracMilestone(TracTickets):
         
     def config(self):
+        env = self._connect()
+        
         yield ('graph_title', 'Trac milestones')
         yield ('graph_args', '-l 0 --base 1000')
         yield ('graph_vlabel', 'Open tickets')
